@@ -15,7 +15,7 @@ $RECYCLE.BIN/
 # OSX
 .DS_Store
 
-.gradle
+.gradle/
 .idea
 out
 *.iml
