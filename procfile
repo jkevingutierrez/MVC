@@ -1,1 +1,1 @@
-web:    java $JAVA_OPTS -jar target/webapp-runner.jar --port 8080 build/libs/*.war
+web:    java -jar target/webapp-runner.jar --port 8080 build/libs/*.war
