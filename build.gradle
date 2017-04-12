@@ -43,4 +43,5 @@ gretty {
   fileLogEnabled = true
 }
 
-task stage(dependsOn: ['clean', 'appRunWar'])
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
