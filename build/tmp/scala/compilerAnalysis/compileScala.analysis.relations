@@ -1,0 +1,20 @@
+products:
+   src/main/scala/co/informatica/mvc/controllers/LoginController.scala -> build/classes/main/co/informatica/mvc/controllers/LoginController.class
+   src/main/scala/co/informatica/mvc/models/Authenticator.scala -> build/classes/main/co/informatica/mvc/models/Authenticator.class
+   src/main/scala/co/informatica/mvc/models/User.scala -> build/classes/main/co/informatica/mvc/models/User.class
+binary dependencies:
+   src/main/scala/co/informatica/mvc/controllers/LoginController.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/rt.jar
+   src/main/scala/co/informatica/mvc/controllers/LoginController.scala -> /Users/macbook/.gradle/caches/modules-2/files-2.1/javax.servlet/javax.servlet-api/3.1.0/3cd63d075497751784b2fa84be59432f4905bf7c/javax.servlet-api-3.1.0.jar
+   src/main/scala/co/informatica/mvc/controllers/LoginController.scala -> /Users/macbook/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-library/2.11.8/ddd5a8bced249bedd86fb4578a39b9fb71480573/scala-library-2.11.8.jar
+   src/main/scala/co/informatica/mvc/models/Authenticator.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/rt.jar
+   src/main/scala/co/informatica/mvc/models/Authenticator.scala -> /Users/macbook/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-library/2.11.8/ddd5a8bced249bedd86fb4578a39b9fb71480573/scala-library-2.11.8.jar
+   src/main/scala/co/informatica/mvc/models/User.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/rt.jar
+   src/main/scala/co/informatica/mvc/models/User.scala -> /Users/macbook/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-library/2.11.8/ddd5a8bced249bedd86fb4578a39b9fb71480573/scala-library-2.11.8.jar
+source dependencies:
+   src/main/scala/co/informatica/mvc/controllers/LoginController.scala -> src/main/scala/co/informatica/mvc/models/Authenticator.scala
+   src/main/scala/co/informatica/mvc/controllers/LoginController.scala -> src/main/scala/co/informatica/mvc/models/User.scala
+external dependencies:
+class names:
+   src/main/scala/co/informatica/mvc/controllers/LoginController.scala -> co.informatica.mvc.controllers.LoginController
+   src/main/scala/co/informatica/mvc/models/Authenticator.scala -> co.informatica.mvc.models.Authenticator
+   src/main/scala/co/informatica/mvc/models/User.scala -> co.informatica.mvc.models.User

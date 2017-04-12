@@ -1,0 +1,46 @@
+apply plugin: 'java'
+apply plugin: 'scala'
+apply plugin: 'war'
+apply plugin: 'eclipse'
+apply plugin: 'org.akhikhl.gretty'
+
+version = '1.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:+'
+    }
+}
+
+repositories {
+	mavenLocal()
+	jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+    compile 'org.scala-lang:scala-library:2.11.8'
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
+    testCompile 'org.scalatest:scalatest_2.11:3.0.0'
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+gretty {
+  // supported values:
+  // 'jetty7', 'jetty8', 'jetty9', 'tomcat7', 'tomcat8'
+  servletContainer = 'jetty9'
+  scanInterval = 2
+  fastReload = true
+  managedClassReload = true
+  contextPath = '/'
+  fileLogEnabled = true
+}
+
+task stage(dependsOn: ['clean', 'appRunWar'])
