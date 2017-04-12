@@ -1,5 +1,3 @@
 package co.informatica.mvc.models
 
-class User(userName: String, password: String) {
-    
-}
+class User(val userName: String, val password: String) extends Model {}

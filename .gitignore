@@ -24,3 +24,5 @@ out
 .env
 .project
 .settings
+bin
+/build/

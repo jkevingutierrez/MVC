@@ -1,40 +1,36 @@
 package co.informatica.mvc.controllers
 
-import co.informatica.mvc.models.{User, Authenticator}
-import javax.servlet.RequestDispatcher
-import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
- 
-class LoginController extends HttpServlet
+import co.informatica.mvc.models.User
+import co.informatica.mvc.views.IndexTemplate
+import javax.servlet.http.{HttpServletRequest, HttpServletResponse}
+
+class LoginController extends BaseController
 {
-  
+	val template = IndexTemplate
+	val model = null
+
   override def doPost(req : HttpServletRequest, resp : HttpServletResponse) = {
-    
-    var rd:RequestDispatcher = null;
     
     val userName = req.getParameter("username")
     val password = req.getParameter("password")
     
-    val authenticator = new Authenticator()
-    
-    val result = authenticator.authenticate(userName, password)
-    
-    if (result.equals("success")) {
-      val user = new User(userName, password);
-			rd = req.getRequestDispatcher("/success.jsp");
-			req.setAttribute("user", user);
-		} else {
-			rd = req.getRequestDispatcher("/error.jsp");
-		}
-    
-    rd.forward(req, resp);
+    val user2 = new User(userName, password)
+//    
+//    req.setCharacterEncoding("utf8")
+//    
+//    val gson = new Gson(); 
+//    
+//    val reader = req.getReader()
+//        
+//    val jsonUser = reader.readLine()
+//
+//    val user = gson.fromJson(jsonUser, classOf[User])
+//     
+//    val json = gson.toJson(user)
+//    resp.setContentType("application/json")
+//    resp.getWriter().print(json)
+
+    resp.getWriter().print("Hello World")
         
   }
-    
-    
-    
-//    resp.getWriter().print("<HTML>" +
-//      "<HEAD><TITLE>Hello, Scala!</TITLE></HEAD>" +
-//      "<BODY>Hello, Scala! This is a servlet.</BODY>" +
-//      "</HTML>")
-     
 }
