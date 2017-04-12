@@ -139,8 +139,8 @@ trait Template {
         <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
         <!-- Contact Form JavaScript -->
-        <script src="js/jqBootstrapValidation.js"></script>
-        <script src="js/contact_me.js"></script>
+        <script src="js/jqBootstrapValidation.min.js"></script>
+        <script src="js/contact_me.min.js"></script>
 
         <!-- Theme JavaScript -->
         <script src="js/clean-blog.min.js"></script>
