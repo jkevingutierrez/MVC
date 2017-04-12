@@ -25,6 +25,6 @@ out
 .project
 .settings
 bin
-/build/
+build/
 
 /target/tomcat.*
