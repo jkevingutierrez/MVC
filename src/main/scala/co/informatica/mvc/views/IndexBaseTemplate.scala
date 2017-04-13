@@ -2,7 +2,7 @@ package co.informatica.mvc.views
 
 import scala.xml.Elem
 
-object IndexTemplate extends Template {
+object IndexBaseTemplate extends BaseTemplate {
 
   override def template: Elem =
     <div class="row">

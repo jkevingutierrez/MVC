@@ -2,11 +2,13 @@ package co.informatica.mvc.views
 
 import scala.xml.Elem
 
-trait Template {
+trait BaseTemplate {
 
-  def template: Elem = <h1>Template de ejemplo</h1>
+  def template: Elem = <h1>Plantilla de ejemplo</h1>
 
-  def message: Elem =
+  def title: String = "Blog MVC"
+
+  def message(currentUser: String = ""): Elem =
     <html lang="es">
 
       <head>
@@ -15,7 +17,9 @@ trait Template {
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="description" content="Blog MVC"/>
         <meta name="author" content="Kevin Gutierrez"/>
-        <title>Success</title>
+        <title>
+          {title}
+        </title>
         <!-- Bootstrap Core CSS -->
         <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 
@@ -45,24 +49,22 @@ trait Template {
                 <span class="sr-only">Toggle navigation</span>
                 Menu
                 <i class="fa fa-bars"></i>
-              </button>
-              <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+              </button>{if (currentUser.trim.isEmpty)
+              <a class="navbar-brand" href="login">Iniciar Sesión</a>
+            else
+              <a class="navbar-brand" href="login">
+                {currentUser}
+              </a>}
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
                 <li>
-                  <a href="index.html">Home</a>
+                  <a href="/">Inicio</a>
                 </li>
                 <li>
-                  <a href="about.html">About</a>
-                </li>
-                <li>
-                  <a href="post.html">Sample Post</a>
-                </li>
-                <li>
-                  <a href="contact.html">Contact</a>
+                  <a href="/contact">Contacto</a>
                 </li>
               </ul>
             </div>
@@ -126,7 +128,7 @@ trait Template {
                     </a>
                   </li>
                 </ul>
-                <p class="copyright text-muted">Copyright 2016</p>
+                <p class="copyright text-muted">Copyright 2017</p>
               </div>
             </div>
           </div>
@@ -140,7 +142,6 @@ trait Template {
 
         <!-- Contact Form JavaScript -->
         <script src="js/jqBootstrapValidation.min.js"></script>
-        <script src="js/contact_me.min.js"></script>
 
         <!-- Theme JavaScript -->
         <script src="js/clean-blog.min.js"></script>

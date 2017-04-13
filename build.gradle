@@ -20,8 +20,8 @@ buildscript {
 }
 
 repositories {
-	jcenter()
-	mavenLocal()
+    jcenter()
+    mavenLocal()
     mavenCentral()
 }
 
@@ -38,15 +38,13 @@ war {
 }
 
 gretty {
-  // supported values:
-  // 'jetty7', 'jetty8', 'jetty9', 'tomcat7', 'tomcat8'
-  servletContainer = 'jetty9'
-  scanInterval = 1
-  fastReload '${projectDir}/static'
-  managedClassReload = true
-  contextPath = '/'
-  fileLogEnabled = true
-  scanDir '${projectDir}/src/main/scala'
+    servletContainer = 'jetty9'
+    scanInterval = 1
+    fastReload '${projectDir}/static'
+    managedClassReload = true
+    contextPath = '/'
+    fileLogEnabled = true
+    scanDir '${projectDir}/src/main/scala'
 }
 
 task stage(dependsOn: ['build', 'clean'])
