@@ -145,8 +145,6 @@ trait BaseTemplate {
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Contact Form JavaScript -->
         <script src="/javascript/vendor/jqBootstrapValidation.min.js"></script>
-        <!-- Theme JavaScript -->
-        <script src="/javascript/main.js"></script>
       </body>
     </html>
 

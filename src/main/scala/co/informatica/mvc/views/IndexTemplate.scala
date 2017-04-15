@@ -34,15 +34,6 @@ object IndexTemplate extends BaseTemplate {
             }
           }
         }
-        <!-- Pager -->
-        <ul class="pager">
-          <li class="next">
-            <a href="#">
-              Posts anteriores
-              &rarr;
-            </a>
-          </li>
-        </ul>
       </div>
     </div>
 }
