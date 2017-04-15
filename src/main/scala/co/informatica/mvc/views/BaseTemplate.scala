@@ -39,7 +39,7 @@ trait BaseTemplate {
         <!-- Bootstrap Core CSS -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <!-- custom CSS -->
-        <link rel="stylesheet" href="/styles/main.css"/>
+        <link rel="stylesheet" href="/styles/main.min.css"/>
         <!-- Custom Fonts -->
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
         <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
