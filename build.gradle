@@ -41,7 +41,7 @@ war {
 gretty {
     httpPort = 8000
     servletContainer = 'jetty9'
-    scanInterval = 1
+    scanInterval = 3
     fastReload '${projectDir}/static'
     managedClassReload = true
     contextPath = '/'

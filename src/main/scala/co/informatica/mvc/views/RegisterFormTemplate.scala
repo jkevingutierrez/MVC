@@ -2,15 +2,18 @@ package co.informatica.mvc.views
 
 import scala.xml.Elem
 
-object LoginFormBaseTemplate extends BaseTemplate {
+object RegisterFormTemplate extends BaseTemplate {
 
-  override def title: String = "Blog MVC | Iniciar Sesión"
+  override def title: String = "Blog MVC | Registrar"
+
+  override def header: Elem =
+    <header class="intro-header"></header>
 
   override def template: Elem =
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <p>Ingresa tus datos para iniciar sesion</p>
-        <form action="login" method="post" novalidate="novalidate">
+        <h3 class="text-center">Ingresa tus datos para registrarte</h3>
+        <form action="/register" method="post" novalidate="novalidate">
           <div class="row control-group">
             <div class="form-group col-xs-12 floating-label-form-group controls">
               <label>Nombre</label>

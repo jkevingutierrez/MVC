@@ -1,14 +1,14 @@
 package co.informatica.mvc.controllers
 
 import co.informatica.mvc.models.User
-import co.informatica.mvc.views.LoginFormBaseTemplate
-import javax.servlet.http.{HttpServletRequest, HttpServletResponse}
+import co.informatica.mvc.views.LoginFormTemplate
+import javax.servlet.http.{ HttpServletRequest, HttpServletResponse }
 
 class LoginController extends BaseController {
-  val template = LoginFormBaseTemplate
-  val model = null
+  override lazy val template = LoginFormTemplate
 
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse) = {
+    super.doGet(req, resp)
 
     resp.setCharacterEncoding("UTF-8")
     resp.getWriter().print("<!DOCTYPE html>" + template.message())
@@ -16,19 +16,35 @@ class LoginController extends BaseController {
   }
 
   override def doPost(req: HttpServletRequest, resp: HttpServletResponse) = {
+    super.doPost(req, resp)
 
+    val id = ""
     val name = req.getParameter("name")
     val email = req.getParameter("email")
 
-    val user = new User(name, email)
+    val user = new User(id, name, email)
 
-    val session= req.getSession()
-    session.setAttribute("name", name)
+    val findUser = User.find(user)
 
-    println(user.name)
-    println(user.email)
+    findUser match {
+      case Some(findUser) => {
+        val user = findUser
+        val session = req.getSession()
 
-    resp.sendRedirect("/")
+        session.setAttribute("id", user.id)
+        session.setAttribute("name", user.name)
+        session.setAttribute("email", user.email)
+
+        println("Logged User:")
+        println(user.name)
+        println(user.email)
+
+        resp.sendRedirect("/")
+      }
+      case None => {
+        resp.sendRedirect("/login")
+      }
+    }
 
   }
 }

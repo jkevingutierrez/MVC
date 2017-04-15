@@ -1,5 +1,7 @@
 package co.informatica.mvc.views
 
+import co.informatica.mvc.models.Model
+
 import scala.xml.Elem
 
 trait BaseTemplate {
@@ -8,9 +10,23 @@ trait BaseTemplate {
 
   def title: String = "Blog MVC"
 
+  def header: Elem =
+    <header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="site-heading">
+              <h1>Blog MVC</h1>
+              <hr class="small"/>
+              <span class="subheading">Un blog inspirado en los principios solid de la POO</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
   def message(currentUser: String = ""): Elem =
     <html lang="es">
-
       <head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -18,85 +34,75 @@ trait BaseTemplate {
         <meta name="description" content="Blog MVC"/>
         <meta name="author" content="Kevin Gutierrez"/>
         <title>
-          {title}
+          { title }
         </title>
         <!-- Bootstrap Core CSS -->
-        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-
-        <!-- Theme CSS -->
-        <link href="styles/clean-blog.min.css" rel="stylesheet"/>
-
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <!-- custom CSS -->
+        <link rel="stylesheet" href="/styles/main.css"/>
         <!-- Custom Fonts -->
-        <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
-
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+          <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
       </head>
-
       <body>
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-          <div class="container-fluid" role="main">
+        <nav class="navbar navbar-inverse navbar-custom navbar-fixed-top">
+          <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" aria-controls="bs-example-navbar-collapse-1" aria-label="Toggle navigation">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
-                Menu
-                <i class="fa fa-bars"></i>
-              </button>{if (currentUser.trim.isEmpty)
-              <a class="navbar-brand" href="login">Iniciar Sesión</a>
-            else
-              <a class="navbar-brand" href="login">
-                {currentUser}
-              </a>}
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">Blog MVC</a>
             </div>
-
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
-                <li>
-                  <a href="/">Inicio</a>
-                </li>
-                <li>
-                  <a href="/contact">Contacto</a>
-                </li>
+                {
+                  if (currentUser.trim.isEmpty) {
+                    <li>
+                      <a href="/register">Registrarse</a>
+                    </li>
+                    <li>
+                      <a href="/login">Iniciar Sesión</a>
+                    </li>
+                  } else {
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        { currentUser }<span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <a href="/posts">Mis posts</a>
+                        </li>
+                        <li>
+                          <a href="/users">Usuarios</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                          <a href="/logout">Cerrar sesión</a>
+                        </li>
+                      </ul>
+                    </li>
+                  }
+                }
               </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-          </div>
-          <!-- /.container -->
-        </nav>
-
-
-        <!-- Page Header -->
-        <!-- Set your background image for this header on the line below. -->
-        <header class="intro-header" style="background-image: url('img/home-bg.jpg')">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                  <h1>Blog MVC</h1>
-                  <hr class="small"/>
-                  <span class="subheading">Un blog inspirado en los principios solid de la POO</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </header>
-
-
-        <!-- Main Content -->
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>{ header }<!-- Main Content -->
         <div class="container">
-          {template}
+          { template }
         </div>
-
-
         <!-- Footer -->
         <footer>
           <div class="container">
@@ -133,18 +139,14 @@ trait BaseTemplate {
             </div>
           </div>
         </footer>
-
         <!-- jQuery -->
-        <script src="vendor/jquery/jquery.min.js"></script>
-
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <!-- Bootstrap Core JavaScript -->
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Contact Form JavaScript -->
-        <script src="js/jqBootstrapValidation.min.js"></script>
-
+        <script src="/javascript/vendor/jqBootstrapValidation.min.js"></script>
         <!-- Theme JavaScript -->
-        <script src="js/clean-blog.min.js"></script>
+        <script src="/javascript/main.js"></script>
       </body>
     </html>
 

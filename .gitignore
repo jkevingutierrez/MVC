@@ -27,5 +27,9 @@ out
 .settings
 bin
 build/
+.cache-main
 
-/target/tomcat.*
+target/tomcat.*
+
+project/target
+project/project

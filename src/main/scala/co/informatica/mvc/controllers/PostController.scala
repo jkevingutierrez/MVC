@@ -1,15 +1,14 @@
 package co.informatica.mvc.controllers
 
+import co.informatica.mvc.models.Post
+import co.informatica.mvc.views.{ PostTemplate }
 import javax.servlet.http.{ HttpServletRequest, HttpServletResponse, HttpSession }
 
-import co.informatica.mvc.views.IndexTemplate
-import co.informatica.mvc.models.Post
+class PostController extends BaseController {
 
-class IndexController extends BaseController {
-  override lazy val template = IndexTemplate
+  override lazy val template = PostTemplate
 
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse) = {
-
     super.doGet(req, resp)
 
     val session: HttpSession = req.getSession(false)
@@ -19,10 +18,10 @@ class IndexController extends BaseController {
       name = session.getAttribute("name").toString()
     }
 
-    val posts = Post.getAll
+    val oid = req.getPathInfo().substring(req.getPathInfo().lastIndexOf("/") + 1)
+    val post = Post.get(oid)
 
-    template.entities = Option(posts)
-
+    template.entity = post
     resp.setCharacterEncoding("UTF-8")
     resp.getWriter().print("<!DOCTYPE html>" + template.message(name))
 
