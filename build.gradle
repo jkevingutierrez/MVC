@@ -39,6 +39,14 @@ war {
     from 'static' // adds a file-set to the root of the archive
 }
 
+test {
+    useJUnit()
+    testLogging {
+        // Show that tests are run in the command-line output
+        events 'started', 'passed'
+    }
+}
+
 gretty {
     httpPort = 8000
     servletContainer = 'jetty9'
