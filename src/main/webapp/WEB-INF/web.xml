@@ -36,7 +36,7 @@
         <servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
         <init-param>
             <param-name>cacheControl</param-name>
-            <param-value>max-age=3600,public</param-value>
+            <param-value>max-age=31104000,public</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
