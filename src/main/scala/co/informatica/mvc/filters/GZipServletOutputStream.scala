@@ -33,9 +33,7 @@ class GZipServletOutputStream @throws[IOException]
     this.gzipOutputStream.write(b)
   }
 
-  override def isReady: Boolean = {
-    super.isReady()
-  }
+  override def isReady: Boolean = ???
 
   override def setWriteListener(writeListener: WriteListener): Unit = {
 

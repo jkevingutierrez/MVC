@@ -111,7 +111,7 @@ trait BaseTemplate {
                     </a>
                   </li>
                 </ul>
-                <p class="copyright text-muted">Copyright 2017</p>
+                <p class="copyright text-muted">Copyright © 2017 Kevin Gutierrez. All Rights Reserved</p>
               </div>
             </div>
           </div>
