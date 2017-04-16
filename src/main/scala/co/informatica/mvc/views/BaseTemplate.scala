@@ -39,7 +39,7 @@ trait BaseTemplate {
         <!-- Bootstrap Core CSS -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <!-- custom CSS -->
-        <link rel="stylesheet" href="/styles/main.min.css"/>
+        <link rel="stylesheet" href="/styles/main.min.css?v=1"/>
         <!-- Custom Fonts -->
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
         <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
@@ -144,7 +144,7 @@ trait BaseTemplate {
         <!-- Bootstrap Core JavaScript -->
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Contact Form JavaScript -->
-        <script src="/javascript/vendor/jqBootstrapValidation.min.js"></script>
+        <script src="/javascript/vendor/jqBootstrapValidation.min.js?v=1"></script>
       </body>
     </html>
 
