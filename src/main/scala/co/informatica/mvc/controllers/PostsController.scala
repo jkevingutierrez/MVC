@@ -1,8 +1,9 @@
 package co.informatica.mvc.controllers
 
-import co.informatica.mvc.models.{ Post, User }
-import co.informatica.mvc.views.{ PostFormTemplate, PostsTemplate }
-import javax.servlet.http.{ HttpServletRequest, HttpServletResponse, HttpSession }
+import javax.servlet.http.{HttpServletRequest, HttpServletResponse, HttpSession}
+
+import co.informatica.mvc.models.{Post, User}
+import co.informatica.mvc.views.{PostFormTemplate, PostsTemplate}
 
 class PostsController extends BaseController {
 

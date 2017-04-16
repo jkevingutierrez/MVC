@@ -14,11 +14,9 @@ object MongoFactory extends DatabaseFactory {
   override protected lazy val USER = "heroku_mkmf5xpd"
   override protected lazy val PASSWORD = "5rvv6dlhv3ulg57lvrpppdmkfp"
   override protected lazy val DATABASE = "heroku_mkmf5xpd"
-
+  override protected lazy val db = mongoClient(DATABASE)
   protected val URI = MongoClientURI("mongodb://" + USER + ":" + PASSWORD + "@" + SERVER + ":" + PORT + "/" + DATABASE)
   protected val mongoClient = MongoClient(URI)
-
-  override protected lazy val db = mongoClient(DATABASE)
 
   def collection(coll: String) = db(coll)
 

@@ -1,6 +1,7 @@
 package co.informatica.mvc.controllers
 
-import javax.servlet.http.{ HttpServlet, HttpServletRequest, HttpServletResponse }
+import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
+
 import co.informatica.mvc.models.Model
 import co.informatica.mvc.views.BaseTemplate
 

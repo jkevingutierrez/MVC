@@ -1,8 +1,9 @@
 package co.informatica.mvc.controllers
 
+import javax.servlet.http.{HttpServletRequest, HttpServletResponse}
+
 import co.informatica.mvc.models.User
 import co.informatica.mvc.views.RegisterFormTemplate
-import javax.servlet.http.{ HttpServletRequest, HttpServletResponse }
 
 class RegisterController extends BaseController {
   override lazy val template = RegisterFormTemplate

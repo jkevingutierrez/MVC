@@ -2,6 +2,7 @@ package co.informatica.mvc.models
 
 import java.text.SimpleDateFormat
 import java.util.Date
+
 import com.mongodb.casbah.Imports._
 
 class Post(val id: String = "", val title: String, val subtitle: String = "", val content: String, val user: User) extends Model {
@@ -11,36 +12,6 @@ class Post(val id: String = "", val title: String, val subtitle: String = "", va
 object Post {
   private val coll = MongoFactory.collection("post")
   private val dateFormat = new SimpleDateFormat("dd/MM/yyyy")
-
-  private def buildMongoDbObject(post: Post, createdDate: String): MongoDBObject = {
-    MongoDBObject(
-      "title" -> post.title,
-      "subtitle" -> post.subtitle,
-      "content" -> post.content,
-      "date" -> createdDate,
-      "user" -> MongoDBObject(
-        "id" -> post.user.id,
-        "name" -> post.user.name,
-        "email" -> post.user.email))
-
-  }
-
-  private def convertDbObjectToModel(obj: MongoDBObject): Post = {
-    val id = obj.getAs[ObjectId]("_id").get.toString()
-    val title = obj.getAs[String]("title").get
-    val subtitle = obj.getAs[String]("subtitle").get
-    val content = obj.getAs[String]("content").get
-    val date = obj.getAs[String]("date").get
-    val userId = obj.getAs[String]("user.id").get
-    val userName = obj.getAs[String]("user.name").get
-    val userEmail = obj.getAs[String]("user.email").get
-
-    val user = new User(userId, userName, userEmail)
-
-    val post = new Post(id, title, subtitle, content, user)
-    post.createdDate = date
-    post
-  }
 
   def getByUserId(id: String): Iterator[Post] = {
     val q = MongoDBObject(
@@ -81,6 +52,36 @@ object Post {
         None
       }
     }
+  }
+
+  private def buildMongoDbObject(post: Post, createdDate: String): MongoDBObject = {
+    MongoDBObject(
+      "title" -> post.title,
+      "subtitle" -> post.subtitle,
+      "content" -> post.content,
+      "date" -> createdDate,
+      "user" -> MongoDBObject(
+        "id" -> post.user.id,
+        "name" -> post.user.name,
+        "email" -> post.user.email))
+
+  }
+
+  private def convertDbObjectToModel(obj: MongoDBObject): Post = {
+    val id = obj.getAs[ObjectId]("_id").get.toString()
+    val title = obj.getAs[String]("title").get
+    val subtitle = obj.getAs[String]("subtitle").get
+    val content = obj.getAs[String]("content").get
+    val date = obj.getAs[String]("date").get
+    val userId = obj.getAs[String]("user.id").get
+    val userName = obj.getAs[String]("user.name").get
+    val userEmail = obj.getAs[String]("user.email").get
+
+    val user = new User(userId, userName, userEmail)
+
+    val post = new Post(id, title, subtitle, content, user)
+    post.createdDate = date
+    post
   }
 
   def create(post: Post): Post = {

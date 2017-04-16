@@ -1,29 +1,8 @@
 package co.informatica.mvc.views
 
-import co.informatica.mvc.models.Model
-
 import scala.xml.Elem
 
 trait BaseTemplate {
-
-  def template: Elem = <h1>Plantilla de ejemplo</h1>
-
-  def title: String = "Blog MVC"
-
-  def header: Elem =
-    <header class="intro-header" style="background-image: url('/img/home-bg.jpg?v=1')">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="site-heading">
-              <h1>Blog MVC</h1>
-              <hr class="small"/>
-              <span class="subheading">Un blog inspirado en los principios solid de la POO</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
 
   def message(currentUser: String = ""): Elem =
     <html lang="es">
@@ -34,7 +13,7 @@ trait BaseTemplate {
         <meta name="description" content="Blog MVC"/>
         <meta name="author" content="Kevin Gutierrez"/>
         <title>
-          { title }
+          {title}
         </title>
         <!-- Bootstrap Core CSS -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -68,40 +47,38 @@ trait BaseTemplate {
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
-                {
-                  if (currentUser.trim.isEmpty) {
+                {if (currentUser.trim.isEmpty) {
+                <li>
+                  <a href="/register">Registrarse</a>
+                </li>
+                  <li>
+                    <a href="/login">Iniciar Sesión</a>
+                  </li>
+              } else {
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    {currentUser}<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
                     <li>
-                      <a href="/register">Registrarse</a>
+                      <a href="/posts">Mis posts</a>
                     </li>
                     <li>
-                      <a href="/login">Iniciar Sesión</a>
+                      <a href="/users">Usuarios</a>
                     </li>
-                  } else {
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        { currentUser }<span class="caret"></span>
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li>
-                          <a href="/posts">Mis posts</a>
-                        </li>
-                        <li>
-                          <a href="/users">Usuarios</a>
-                        </li>
-                        <li role="separator" class="divider"></li>
-                        <li>
-                          <a href="/logout">Cerrar sesión</a>
-                        </li>
-                      </ul>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                      <a href="/logout">Cerrar sesión</a>
                     </li>
-                  }
-                }
+                  </ul>
+                </li>
+              }}
               </ul>
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
-        </nav>{ header }<!-- Main Content -->
+            </div> <!-- /.navbar-collapse -->
+          </div> <!-- /.container-fluid -->
+        </nav>{header}<!-- Main Content -->
         <div class="container">
-          { template }
+          {template}
         </div>
         <!-- Footer -->
         <footer>
@@ -147,5 +124,24 @@ trait BaseTemplate {
         <script src="/javascript/vendor/jqBootstrapValidation.min.js?v=1"></script>
       </body>
     </html>
+
+  def template: Elem = <h1>Plantilla de ejemplo</h1>
+
+  def title: String = "Blog MVC"
+
+  def header: Elem =
+    <header class="intro-header" style="background-image: url('/img/home-bg.jpg?v=1')">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="site-heading">
+              <h1>Blog MVC</h1>
+              <hr class="small"/>
+              <span class="subheading">Un blog inspirado en los principios solid de la POO</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
 
 }

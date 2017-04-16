@@ -1,8 +1,9 @@
 package co.informatica.mvc.controllers
 
+import javax.servlet.http.{HttpServletRequest, HttpServletResponse, HttpSession}
+
 import co.informatica.mvc.models.User
-import co.informatica.mvc.views.{ UserFormTemplate, UsersTemplate }
-import javax.servlet.http.{ HttpServletRequest, HttpServletResponse, HttpSession }
+import co.informatica.mvc.views.{UserFormTemplate, UsersTemplate}
 
 class UsersController extends BaseController {
 

@@ -1,8 +1,9 @@
 package co.informatica.mvc.controllers
 
+import javax.servlet.http.{HttpServletRequest, HttpServletResponse}
+
 import co.informatica.mvc.models.User
 import co.informatica.mvc.views.LoginFormTemplate
-import javax.servlet.http.{ HttpServletRequest, HttpServletResponse }
 
 class LoginController extends BaseController {
   override lazy val template = LoginFormTemplate

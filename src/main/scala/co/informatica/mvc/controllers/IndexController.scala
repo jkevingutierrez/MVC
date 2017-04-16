@@ -1,9 +1,9 @@
 package co.informatica.mvc.controllers
 
-import javax.servlet.http.{ HttpServletRequest, HttpServletResponse, HttpSession }
+import javax.servlet.http.{HttpServletRequest, HttpServletResponse, HttpSession}
 
-import co.informatica.mvc.views.IndexTemplate
 import co.informatica.mvc.models.Post
+import co.informatica.mvc.views.IndexTemplate
 
 class IndexController extends BaseController {
   override lazy val template = IndexTemplate

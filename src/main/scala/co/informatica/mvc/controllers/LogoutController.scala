@@ -1,6 +1,6 @@
 package co.informatica.mvc.controllers
 
-import javax.servlet.http.{ HttpServletRequest, HttpServletResponse }
+import javax.servlet.http.{HttpServletRequest, HttpServletResponse}
 
 class LogoutController extends BaseController {
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse) = {

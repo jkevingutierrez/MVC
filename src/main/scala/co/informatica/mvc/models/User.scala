@@ -8,20 +8,6 @@ object User {
 
   private val coll = MongoFactory.collection("user")
 
-  private def buildMongoDbObject(user: User): MongoDBObject = {
-    MongoDBObject(
-      "name" -> user.name,
-      "email" -> user.email)
-  }
-
-  private def convertDbObjectToModel(obj: MongoDBObject): User = {
-    val id = obj.getAs[ObjectId]("_id").get.toString()
-    val name = obj.getAs[String]("name").get
-    val email = obj.getAs[String]("email").get
-
-    new User(id, name, email)
-  }
-
   def getAll: Iterator[User] = {
     val cursorIterator = coll.find()
     cursorIterator.map({ mongoObject => convertDbObjectToModel(mongoObject) })
@@ -70,6 +56,20 @@ object User {
         convertDbObjectToModel(mongoObject)
       }
     }
+  }
+
+  private def buildMongoDbObject(user: User): MongoDBObject = {
+    MongoDBObject(
+      "name" -> user.name,
+      "email" -> user.email)
+  }
+
+  private def convertDbObjectToModel(obj: MongoDBObject): User = {
+    val id = obj.getAs[ObjectId]("_id").get.toString()
+    val name = obj.getAs[String]("name").get
+    val email = obj.getAs[String]("email").get
+
+    new User(id, name, email)
   }
 
   def delete(id: String): WriteResult = {
