@@ -55,9 +55,9 @@ object PostTemplate extends BaseTemplate {
               {if (entity.comments != null) {
               for (comment <- entity.comments) yield {
                 <div class="comment-preview">
-                  <p class="comment-meta">
-                    {comment.user.name} dice:
-                  </p>
+                  <strong class="comment-meta">
+                    {comment.user.name}:
+                  </strong>
                   <p class="comment-content">
                     {comment.content}
                   </p>
