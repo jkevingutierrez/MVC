@@ -244,7 +244,7 @@ hr.small {
 .comment-preview .comment-content {
     font-size: 16px;
     color: #555;
-    margin: 10px;
+    margin: 0 10px 5px;
 }
 
 .comment-form .btn {
