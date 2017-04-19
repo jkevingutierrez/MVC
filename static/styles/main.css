@@ -234,12 +234,12 @@ hr.small {
 }
 
 .comment-preview p {
-    margin: 10px;
+    margin: 0;
 }
 
 .comment-preview .comment-meta {
-    font-size: 11px;
-    margin: 0;
+    font-size: 12px;
+    margin: 10px;
 }
 
 .comment-preview .comment-content {
@@ -434,4 +434,3 @@ img::-moz-selection {
 body {
     -webkit-tap-highlight-color: #0085A1;
 }
-
