@@ -41,23 +41,6 @@ object User {
     }
   }
 
-  def create(user: User): User = {
-    var mongoObject = MongoDBObject("email" -> user.email)
-    val someUser = coll.findOne(mongoObject)
-
-    someUser match {
-      case Some(someUser) => {
-        println("El usuario ya existe")
-        user
-      }
-      case None => {
-        mongoObject = buildMongoDbObject(user)
-        val insert = coll.insert(mongoObject)
-        convertDbObjectToModel(mongoObject)
-      }
-    }
-  }
-
   private def buildMongoDbObject(user: User): MongoDBObject = {
     MongoDBObject(
       "name" -> user.name,
@@ -70,6 +53,23 @@ object User {
     val email = obj.getAs[String]("email").get
 
     new User(id, name, email)
+  }
+
+  def create(user: User): User = {
+    var mongoObject = MongoDBObject("email" -> user.email)
+    val someUser = coll.findOne(mongoObject)
+
+    someUser match {
+      case Some(someUser) => {
+        println("El usuario ya existe")
+        user
+      }
+      case None => {
+        mongoObject = buildMongoDbObject(user)
+        coll.insert(mongoObject)
+        convertDbObjectToModel(mongoObject)
+      }
+    }
   }
 
   def delete(id: String): WriteResult = {

@@ -233,6 +233,32 @@ hr.small {
     text-decoration: underline;
 }
 
+.comment-preview p {
+    margin: 0;
+}
+
+.comment-preview .comment-meta {
+    font-size: 12px;
+}
+
+.comment-preview .comment-content {
+    font-size: 14px;
+    color: #555;
+}
+
+.comment-form .btn {
+    padding: 5px 15px;
+}
+
+.comment-form .floating-label-form-group {
+    margin-bottom: 0;
+}
+
+.comment-form .floating-label-form-group textarea {
+    font-size: 14px;
+    padding-bottom: 0;
+}
+
 @media only screen and (min-width: 768px) {
     .post-preview > a > .post-title {
         font-size: 36px;
@@ -407,3 +433,4 @@ img::-moz-selection {
 body {
     -webkit-tap-highlight-color: #0085A1;
 }
+

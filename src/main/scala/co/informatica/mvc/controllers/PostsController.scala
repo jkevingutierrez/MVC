@@ -28,7 +28,7 @@ class PostsController extends BaseController {
         resp.getWriter().print("<!DOCTYPE html>" + PostFormTemplate.message(userName))
       } else if (req.getPathInfo() contains "delete") {
         val oid = req.getPathInfo().substring(req.getPathInfo().lastIndexOf("/") + 1)
-        val remove = Post.delete(oid)
+        Post.delete(oid)
 
         resp.sendRedirect("/posts")
       } else {

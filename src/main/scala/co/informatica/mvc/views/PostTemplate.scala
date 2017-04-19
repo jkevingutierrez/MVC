@@ -41,7 +41,7 @@ object PostTemplate extends BaseTemplate {
       </div>
     </header>
 
-  override def template: Elem =
+  override def template(currentUser: String = ""): Elem =
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         {entity match {
@@ -49,6 +49,45 @@ object PostTemplate extends BaseTemplate {
           <p>
             {entity.content}
           </p>
+              <hr/>
+            <h4>Comentarios</h4>
+            <div class="row">
+              {if (entity.comments != null) {
+              for (comment <- entity.comments) yield {
+                <div class="comment-preview">
+                  <p class="comment-meta">
+                    {comment.user.name}
+                  </p>
+                  <p class="comment-content">
+                    {comment.content}
+                  </p>
+                  <p class="comment-meta">
+                    {comment.createdDate}
+                  </p>
+                </div>
+                    <hr/>
+              }
+            }}{if (!currentUser.trim.isEmpty) {
+              <form action="/comments" method="post" novalidate="novalidate" class="comment-form">
+                <input type="hidden" name="postid" value={entity.id}/>
+                <div class="row control-group">
+                  <div class="form-group col-xs-12 floating-label-form-group controls">
+                    <label for="content">Escribe un comentario</label>
+                    <textarea class="form-control" placeholder="Escribe tu comentario" id="content" name="content" required="required" data-validation-required-message="Escribe algo en el comentario."></textarea>
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
+                <br/>
+                <div class="row">
+                  <div class="form-group col-xs-12">
+                    <button type="submit" class="btn btn-default">Enviar</button>
+                  </div>
+                </div>
+              </form>
+            }}
+            </div>
+
+
         }
         case None => {
           <h3>El post no existe.</h3>

@@ -27,7 +27,7 @@ class UsersController extends BaseController {
         resp.getWriter().print("<!DOCTYPE html>" + UserFormTemplate.message(name))
       } else if (req.getPathInfo() contains "delete") {
         val oid = req.getPathInfo().substring(req.getPathInfo().lastIndexOf("/") + 1)
-        val remove = User.delete(oid)
+        User.delete(oid)
 
         resp.sendRedirect("/users")
       } else {

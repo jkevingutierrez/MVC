@@ -32,6 +32,10 @@
         <servlet-class>co.informatica.mvc.controllers.UsersController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>comments</servlet-name>
+        <servlet-class>co.informatica.mvc.controllers.CommentsController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>default</servlet-name>
         <servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
         <init-param>
@@ -66,6 +70,10 @@
     <servlet-mapping>
         <servlet-name>users</servlet-name>
         <url-pattern>/users/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>comments</servlet-name>
+        <url-pattern>/comments/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>default</servlet-name>

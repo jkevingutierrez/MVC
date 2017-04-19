@@ -78,7 +78,7 @@ trait BaseTemplate {
           </div> <!-- /.container-fluid -->
         </nav>{header}<!-- Main Content -->
         <div class="container">
-          {template}
+          {template(currentUser)}
         </div>
         <!-- Footer -->
         <footer>
@@ -125,7 +125,7 @@ trait BaseTemplate {
       </body>
     </html>
 
-  def template: Elem = <h1>Plantilla de ejemplo</h1>
+  def template(currentUser: String = ""): Elem = <h1>Plantilla de ejemplo</h1>
 
   def title: String = "Blog MVC"
 

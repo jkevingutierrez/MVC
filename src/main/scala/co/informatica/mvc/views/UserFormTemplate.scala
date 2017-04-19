@@ -9,21 +9,21 @@ object UserFormTemplate extends BaseTemplate {
   override def header: Elem =
     <header class="intro-header"></header>
 
-  override def template: Elem =
+  override def template(currentUser: String = ""): Elem =
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <h3 class="text-center">Crear Nuevo Usuario</h3>
         <form action="/users" method="post" novalidate="novalidate">
           <div class="row control-group">
             <div class="form-group col-xs-12 floating-label-form-group controls">
-              <label>Nombre</label>
+              <label for="name">Nombre</label>
               <input type="text" class="form-control" placeholder="Nombre" id="name" name="name" required="required" data-validation-required-message="Escribe tu nombre."/>
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <div class="row control-group">
             <div class="form-group col-xs-12 floating-label-form-group controls">
-              <label>Correo electronico</label>
+              <label for="email">Correo electronico</label>
               <input type="email" class="form-control" placeholder="Correo electronico" id="email" name="email" required="required" data-validation-required-message="Escribe tu correo."/>
               <p class="help-block text-danger"></p>
             </div>
