@@ -234,15 +234,16 @@ hr.small {
 }
 
 .comment-preview p {
-    margin: 0;
+    margin: 10px;
 }
 
 .comment-preview .comment-meta {
-    font-size: 12px;
+    font-size: 11px;
+    margin: 0;
 }
 
 .comment-preview .comment-content {
-    font-size: 14px;
+    font-size: 16px;
     color: #555;
 }
 
