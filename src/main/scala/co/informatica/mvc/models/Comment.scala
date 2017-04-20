@@ -9,16 +9,66 @@ class Comment(val content: String, val user: User, val id: String = "") extends 
   var createdDate: String = ""
 }
 
-object Comment {
+object Comment extends Get with Create {
   private val coll = MongoFactory.collection("comment")
   private val dateFormat = new SimpleDateFormat("dd/MM/yyyy")
 
-  def getAll: Iterator[Comment] = {
+  override def getAll: Iterator[Comment] = {
     val cursorIterator = coll.find()
     cursorIterator.map({ mongoObject => convertDbObjectToModel(mongoObject) })
   }
 
-  private def convertDbObjectToModel(obj: MongoDBObject): Comment = {
+  override def get(id: String): Option[Comment] = {
+    val mongoObject = MongoDBObject("_id" -> new ObjectId(id))
+    val someComment = coll.findOne(mongoObject)
+
+    someComment match {
+      case Some(someComment) => {
+        Option(convertDbObjectToModel(someComment))
+      }
+      case None => {
+        None
+      }
+    }
+  }
+
+  override def find(model: Model): Option[Comment] = {
+    val comment = model.asInstanceOf[Comment]
+    val mongoObject = buildDBObject(comment)
+    val someComment = coll.findOne(mongoObject)
+
+    someComment match {
+      case Some(someComment) => {
+        Option(convertDbObjectToModel(someComment))
+      }
+      case None => {
+        None
+      }
+    }
+  }
+
+  override def create(model: Model): Comment = {
+    val comment = model.asInstanceOf[Comment]
+    var mongoObject = MongoDBObject("content" -> comment.content)
+    val someComment = coll.findOne(mongoObject)
+    val date = new Date()
+    val createdDate = dateFormat.format(date)
+
+    someComment match {
+      case Some(someComment) => {
+        println("El Comentrio ya existe")
+        comment
+      }
+      case None => {
+        comment.createdDate = createdDate
+        mongoObject = buildDBObject(comment)
+        coll.insert(mongoObject)
+        convertDbObjectToModel(mongoObject)
+      }
+    }
+  }
+
+  protected def convertDbObjectToModel(obj: MongoDBObject): Comment = {
     val id = obj.getAs[ObjectId]("_id").get.toString()
     val content = obj.getAs[String]("content").get
     val date = obj.getAs[String]("date").get
@@ -33,66 +83,13 @@ object Comment {
     comment
   }
 
-  def get(id: String): Option[Comment] = {
-    val mongoObject = MongoDBObject("_id" -> new ObjectId(id))
-    val someComment = coll.findOne(mongoObject)
-
-    someComment match {
-      case Some(someComment) => {
-        Option(convertDbObjectToModel(someComment))
-      }
-      case None => {
-        None
-      }
-    }
-  }
-
-  def find(comment: Comment): Option[Comment] = {
-    val mongoObject = buildMongoDbObject(comment, comment.createdDate)
-    val someComment = coll.findOne(mongoObject)
-
-    someComment match {
-      case Some(someComment) => {
-        Option(convertDbObjectToModel(someComment))
-      }
-      case None => {
-        None
-      }
-    }
-  }
-
-  def create(comment: Comment): Comment = {
-    var mongoObject = MongoDBObject("content" -> comment.content)
-    val someComment = coll.findOne(mongoObject)
-    val date = new Date()
-    val createdDate = dateFormat.format(date)
-
-    someComment match {
-      case Some(someComment) => {
-        println("El Comentrio ya existe")
-        comment
-      }
-      case None => {
-        mongoObject = buildMongoDbObject(comment, createdDate)
-        coll.insert(mongoObject)
-        convertDbObjectToModel(mongoObject)
-      }
-    }
-  }
-
-  private def buildMongoDbObject(comment: Comment, createdDate: String): MongoDBObject = {
+  protected def buildDBObject(comment: Comment): MongoDBObject = {
     MongoDBObject(
       "content" -> comment.content,
-      "date" -> createdDate,
+      "date" -> comment.createdDate,
       "user" -> MongoDBObject(
         "id" -> comment.user.id,
         "name" -> comment.user.name,
         "email" -> comment.user.email))
   }
-
-  def delete(id: String): WriteResult = {
-    val mongoObject = MongoDBObject("_id" -> new ObjectId(id))
-    coll.remove(mongoObject)
-  }
-
 }

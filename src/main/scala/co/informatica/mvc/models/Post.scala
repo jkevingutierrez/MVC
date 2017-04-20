@@ -10,7 +10,7 @@ class Post(val id: String = "", val title: String, val subtitle: String = "", va
   var comments: Seq[Comment] = Seq[Comment]()
 }
 
-object Post {
+object Post extends Get with Create with Delete {
   private val coll = MongoFactory.collection("post")
   private val dateFormat = new SimpleDateFormat("dd/MM/yyyy")
 
@@ -18,19 +18,15 @@ object Post {
     val q = MongoDBObject("user.id" -> id)
 
     val cursorIterator = coll.find(q)
-
-    print("cursorIterator")
-    print(cursorIterator)
-
     cursorIterator.map({ mongoObject => convertDbObjectToModel(mongoObject) })
   }
 
-  def getAll: Iterator[Post] = {
+  override def getAll: Iterator[Post] = {
     val cursorIterator = coll.find()
     cursorIterator.map({ mongoObject => convertDbObjectToModel(mongoObject) })
   }
 
-  def get(id: String): Option[Post] = {
+  override def get(id: String): Option[Post] = {
     val mongoObject = MongoDBObject("_id" -> new ObjectId(id))
     val somePost = coll.findOne(mongoObject)
 
@@ -44,8 +40,9 @@ object Post {
     }
   }
 
-  def find(post: Post): Option[Post] = {
-    val mongoObject = buildMongoDbObject(post, post.createdDate)
+  override def find(model: Model): Option[Model] = {
+    val post = model.asInstanceOf[Post]
+    val mongoObject = buildDBObject(post)
     val somePost = coll.findOne(mongoObject)
 
     somePost match {
@@ -58,26 +55,20 @@ object Post {
     }
   }
 
-  def create(post: Post): Post = {
-    var mongoObject = MongoDBObject("title" -> post.title)
-    val somePost = coll.findOne(mongoObject)
-    val date = new Date()
-    val createdDate = dateFormat.format(date)
-
-    somePost match {
-      case Some(somePost) => {
-        println("El Post ya existe")
-        post
-      }
-      case None => {
-        mongoObject = buildMongoDbObject(post, createdDate)
-        coll.insert(mongoObject)
-        convertDbObjectToModel(mongoObject)
-      }
-    }
+  protected def buildDBObject(post: Post): MongoDBObject = {
+    MongoDBObject(
+      "title" -> post.title,
+      "subtitle" -> post.subtitle,
+      "content" -> post.content,
+      "date" -> post.createdDate,
+      "comments" -> MongoDBList(),
+      "user" -> MongoDBObject(
+        "id" -> post.user.id,
+        "name" -> post.user.name,
+        "email" -> post.user.email))
   }
 
-  private def convertDbObjectToModel(obj: MongoDBObject): Post = {
+  protected def convertDbObjectToModel(obj: MongoDBObject): Post = {
     val id = obj.getAs[ObjectId]("_id").get.toString()
     val title = obj.getAs[String]("title").get
     val subtitle = obj.getAs[String]("subtitle").get
@@ -107,7 +98,7 @@ object Post {
     post
   }
 
-  private def transformCommentsList(list: MongoDBList) = {
+  protected def transformCommentsList(list: MongoDBList) = {
     println("Transform:")
     println(list.getClass)
     list.map({ element => {
@@ -129,20 +120,28 @@ object Post {
     })
   }
 
-  private def buildMongoDbObject(post: Post, createdDate: String): MongoDBObject = {
-    MongoDBObject(
-      "title" -> post.title,
-      "subtitle" -> post.subtitle,
-      "content" -> post.content,
-      "date" -> createdDate,
-      "comments" -> MongoDBList(),
-      "user" -> MongoDBObject(
-        "id" -> post.user.id,
-        "name" -> post.user.name,
-        "email" -> post.user.email))
+  override def create(model: Model): Post = {
+    val post = model.asInstanceOf[Post]
+    var mongoObject = MongoDBObject("title" -> post.title)
+    val somePost = coll.findOne(mongoObject)
+    val date = new Date()
+    val createdDate = dateFormat.format(date)
+
+    somePost match {
+      case Some(somePost) => {
+        println("El Post ya existe")
+        post
+      }
+      case None => {
+        post.createdDate = createdDate
+        mongoObject = buildDBObject(post)
+        coll.insert(mongoObject)
+        convertDbObjectToModel(mongoObject)
+      }
+    }
   }
 
-  def delete(id: String): WriteResult = {
+  override def delete(id: String): WriteResult = {
     val mongoObject = MongoDBObject("_id" -> new ObjectId(id))
     coll.remove(mongoObject)
   }

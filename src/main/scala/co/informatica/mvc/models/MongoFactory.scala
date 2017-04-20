@@ -4,10 +4,10 @@ import com.mongodb.casbah.Imports._
 
 object MongoFactory extends DatabaseFactory {
 
-  // override protected val SERVER = "localhost"
-  // override protected val PORT   = 27017
-  // override protected val DATABASE = "test"
-  // val mongoClient = MongoClient(SERVER, PORT)
+  // override protected lazy val SERVER = "localhost"
+  // override protected lazy val PORT   = 27017
+  // override protected lazy val DATABASE = "test"
+  // protected val mongoClient = MongoClient(SERVER, PORT)
 
   override protected lazy val SERVER = "ds161190.mlab.com"
   override protected lazy val PORT = 61190

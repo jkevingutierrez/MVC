@@ -4,16 +4,16 @@ import com.mongodb.casbah.Imports._
 
 class User(val id: String = "", val name: String, val email: String) extends Model {}
 
-object User {
+object User extends Get with Create with Delete with Update {
 
   private val coll = MongoFactory.collection("user")
 
-  def getAll: Iterator[User] = {
+  override def getAll: Iterator[User] = {
     val cursorIterator = coll.find()
     cursorIterator.map({ mongoObject => convertDbObjectToModel(mongoObject) })
   }
 
-  def get(id: String): Option[User] = {
+  override def get(id: String): Option[User] = {
     val mongoObject = MongoDBObject("_id" -> new ObjectId(id))
     val someUser = coll.findOne(mongoObject)
 
@@ -27,8 +27,9 @@ object User {
     }
   }
 
-  def find(user: User): Option[User] = {
-    val mongoObject = buildMongoDbObject(user)
+  override def find(model: Model): Option[User] = {
+    val user = model.asInstanceOf[User]
+    val mongoObject = buildDBObject(user)
     val someUser = coll.findOne(mongoObject)
 
     someUser match {
@@ -41,21 +42,8 @@ object User {
     }
   }
 
-  private def buildMongoDbObject(user: User): MongoDBObject = {
-    MongoDBObject(
-      "name" -> user.name,
-      "email" -> user.email)
-  }
-
-  private def convertDbObjectToModel(obj: MongoDBObject): User = {
-    val id = obj.getAs[ObjectId]("_id").get.toString()
-    val name = obj.getAs[String]("name").get
-    val email = obj.getAs[String]("email").get
-
-    new User(id, name, email)
-  }
-
-  def create(user: User): User = {
+  override def create(model: Model): User = {
+    val user = model.asInstanceOf[User]
     var mongoObject = MongoDBObject("email" -> user.email)
     val someUser = coll.findOne(mongoObject)
 
@@ -65,19 +53,33 @@ object User {
         user
       }
       case None => {
-        mongoObject = buildMongoDbObject(user)
+        mongoObject = buildDBObject(user)
         coll.insert(mongoObject)
         convertDbObjectToModel(mongoObject)
       }
     }
   }
 
-  def delete(id: String): WriteResult = {
+  protected def buildDBObject(user: User): MongoDBObject = {
+    MongoDBObject(
+      "name" -> user.name,
+      "email" -> user.email)
+  }
+
+  protected def convertDbObjectToModel(obj: MongoDBObject): User = {
+    val id = obj.getAs[ObjectId]("_id").get.toString()
+    val name = obj.getAs[String]("name").get
+    val email = obj.getAs[String]("email").get
+
+    new User(id, name, email)
+  }
+
+  override def delete(id: String): WriteResult = {
     val mongoObject = MongoDBObject("_id" -> new ObjectId(id))
     coll.remove(mongoObject)
   }
 
-  def update(id: String): User = {
+  override def update(id: String): User = {
     new User("", "", "")
   }
 
