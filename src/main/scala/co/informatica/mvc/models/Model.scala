@@ -1,3 +1,3 @@
 package co.informatica.mvc.models
 
-trait Model {}
+abstract class Model {}
